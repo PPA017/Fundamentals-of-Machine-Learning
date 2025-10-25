@@ -39,7 +39,7 @@ def gradientDescent(X, y, theta, alpha, num_iters):
         errors = preds - y #h - y
         gradient = (1/m * X.T.dot(errors)) # 1/m * X^T(h - y)
         
-        theta_new = theta_new - alpha * gradient # theta = theta - alpha * gradient
+        theta_new = theta_new - alpha * gradient
         
         J_history.append(computeCost(X,y, theta_new))
     
@@ -48,6 +48,8 @@ def gradientDescent(X, y, theta, alpha, num_iters):
 
 #1
 #print(warmUpExercise())
+
+#============================= Linear Regression with one Variable ========================================
 
 #2.1
 data = np.loadtxt(os.path.join('Data','ex1data1.txt'), delimiter=',')
@@ -79,7 +81,40 @@ plotData(X[:,1],y)
 #pyplot.show()
 
 predict1 = np.dot([1, 3.5], theta)
-print('For population = 35.000 we predict a profit of {:.2f} (Expected 4519.77)\n'.format(predict1*10000))
+#print('For population = 35.000 we predict a profit of {:.2f} (Expected 4519.77)\n'.format(predict1*10000))
 
 predict2 = np.dot([1, 7], theta)
-print('For population of 70.000 people we expect a profit of {:.2f} (Expected 45342.45)\n'.format(predict2*10000))
+#print('For population of 70.000 people we expect a profit of {:.2f} (Expected 45342.45)\n'.format(predict2*10000))
+
+
+#==========================================================================================================================
+
+#2.4 Visualizing Cost Function
+theta0_vals = np.linspace(-10, 10, 100)
+theta1_vals = np.linspace(-1, 4, 100)
+
+J_vals = np.zeros((theta0_vals.shape[0], theta1_vals.shape[0]))
+for i, theta0 in enumerate(theta0_vals):
+    for j, theta1 in enumerate(theta1_vals):
+        J_vals[i, j] = computeCost(X, y, [theta0, theta1])
+
+J_vals = J_vals.T
+
+fig = pyplot.figure(figsize=(12,5))
+ax = fig.add_subplot(121, projection='3d')
+ax.plot_surface(theta0_vals, theta1_vals, J_vals, cmap='viridis')
+pyplot.xlabel('theta0')
+pyplot.ylabel('theta1')
+pyplot.title('Surface')        
+
+ax = pyplot.subplot(122)
+pyplot.contour(theta0_vals, theta1_vals, J_vals, linewidths=2, cmap='viridis', levels=np.logspace(-2, 3, 20))
+pyplot.xlabel('theta0')
+pyplot.ylabel('theta1')
+pyplot.plot(theta[0], theta[1], 'ro', ms=10, lw=2)
+pyplot.title('Contour, showing minimum')
+pyplot.show()
+pass
+
+#======================================= Linear Regression with Multiple Variables ========================================================
+
