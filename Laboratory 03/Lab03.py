@@ -177,3 +177,6 @@ all_theta = oneVsAll(X, y, num_labels, lambda_)
 #========================== Testing predictOneVsAll ====================================
 pred = predictOneVsAll(all_theta, X)
 print('Training set Accuracy: {:.2f}%'.format(np.mean(pred==y) * 100))
+
+
+
