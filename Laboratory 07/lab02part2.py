@@ -32,10 +32,10 @@ def pca(X):
     
     m, n = X.shape
     
-    U = np.zeros(shape=(n,n))
-    S = np.zeros(n)
+    U = np.zeros(shape=(n,n)) #eigenvector
+    S = np.zeros(n) #eigvenvalue
     
-    sigma = (1/m) * X.T @ X
+    sigma = (1/m) * X.T @ X #covariance
     
     U, S, aux = np.linalg.svd(sigma)
     
